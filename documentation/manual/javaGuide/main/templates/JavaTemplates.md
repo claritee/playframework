@@ -33,17 +33,7 @@ Templates are compiled as standard Scala functions, following a simple naming co
 
 For example, here is a simple template:
 
-```html
-@(customer: Customer, orders: List[Order])
- 
-<h1>Welcome @customer.name!</h1>
-
-<ul> 
-@for(order <- orders) {
-  <li>@order.getTitle()</li>
-} 
-</ul>
-```
+@[example-template](code/javaguide/templates/views/Application/index.scala.html)
 
 You can then call this from any Java code as you would normally call a method on a class:
 
