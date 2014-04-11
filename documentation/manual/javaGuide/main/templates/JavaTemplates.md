@@ -37,9 +37,7 @@ For example, here is a simple template:
 
 You can then call this from any Java code as you would normally call a method on a class:
 
-```java
-Content html = views.html.Application.index.render(customer, orders);
-```
+@[invoke-template](code/JavaTemplates.java)
 
 ## Syntax: the magic ‘@’ character
 
