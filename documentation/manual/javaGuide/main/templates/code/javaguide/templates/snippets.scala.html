@@ -9,7 +9,7 @@ My email is bob@@example.com
 @* #for-loop *@
 <ul>
 @for(p <- products) {
-  <li>@p.name ($@p.price)</li>
+  <li>@p.getName() ($@p.getPrice())</li>
 }
 </ul>
 @* #for-loop *@
@@ -17,18 +17,18 @@ My email is bob@@example.com
 
 @defining(List("a", "b")) { items =>
   @* #conditional *@
-  @if(items.isEmpty) {
+  @if(items.isEmpty()) {
     <h1>Nothing to display</h1>
   } else {
-    <h1>@items.size items!</h1>
+    <h1>@items.size() items!</h1>
   }
   @* #conditional *@
 }
 
 <span class="reusable">
 @* #reusable *@
-@display(product: Product) = {
-  @product.name ($@product.price)
+@display(product: models.Product) = {
+  @product.getName() ($@product.getPrice())
 }
 
 <ul>
@@ -53,15 +53,15 @@ My email is bob@@example.com
 @ImplicitTester.test
 
 @* #defining *@
-@defining(user.firstName + " " + user.lastName) { fullName =>
+@defining(user.getFirstName() + " " + user.getLastName()) { fullName =>
   <div>Hello @fullName</div>
 }
 @* #defining *@
 
 @* #comment *@
 @*********************
-* This is a comment *
-*********************@
+ * This is a comment *
+ *********************@
 @* #comment *@
 
 @* #raw-html *@

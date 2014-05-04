@@ -1,5 +1,5 @@
 @* #import *@
-@(customer: Customer, orders: List[Order])
+@(customer: models.Customer, orders: List[models.Order])
 
 @import utils._
 
@@ -13,3 +13,7 @@
 @* #absolute *@
 
 @AbsoluteImportTester.test
+
+@* #common *@
+templatesImport += "com.abc.backend._"
+@* #common *@

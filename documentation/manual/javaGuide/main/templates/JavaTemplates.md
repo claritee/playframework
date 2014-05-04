@@ -67,41 +67,28 @@ Hello @{val name = customer.getFirstName() + customer.getLastName(); name}!
 
 Because `@` is a special character, you’ll sometimes need to escape it. Do this by using `@@`:
 
-```
-My email is bob@@example.com
-```
+@[escape-at](code/javaguide/templates/snippets.scala.html)
 
 ## Template parameters
 
 A template is like a function, so it needs parameters, which must be declared at the top of the template file:
 
-```scala
-@(customer: models.Customer, orders: List[models.Order])
-```
+@[simple-parameters](code/javaguide/templates/simpleParameters.scala.html)
 
 You can also use default values for parameters:
 
-```scala
-@(title: String = "Home")
-```
+@[default-parameters](code/javaguide/templates/defaultParameters.scala.html)
 
 Or even several parameter groups:
 
-```scala
-@(title:String)(body: Html)
-```
+@[curried-parameters](code/javaguide/templates/curriedParameters.scala.html)
+
 
 ## Iterating
 
 You can use the `for` keyword, in a pretty standard way:
 
-```html
-<ul>
-@for(p <- products) {
-  <li>@p.getName() ($@p.getPrice())</li>
-} 
-</ul>
-```
+@[for-loop](code/javaguide/templates/snippets.scala.html)
 
 > **Note:** Make sure that `{` is on the same line with `for` to indicate that the expression continues to next line.  
 
@@ -109,104 +96,53 @@ You can use the `for` keyword, in a pretty standard way:
 
 If-blocks are nothing special. Simply use Scala’s standard `if` statement:
 
-```html
-@if(items.isEmpty()) {
-  <h1>Nothing to display</h1>
-} else {
-  <h1>@items.size() items!</h1>
-}
-```
+@[conditional](code/javaguide/templates/snippets.scala.html)
 
 ## Declaring reusable blocks
 
 You can create reusable code blocks:
 
-```html
-@display(product: models.Product) = {
-  @product.getName() ($@product.getPrice())
-}
- 
-<ul>
-@for(product <- products) {
-  @display(product)
-} 
-</ul>
-```
+@[reusable](code/javaguide/templates/snippets.scala.html)
 
 Note that you can also declare reusable pure code blocks:
 
-```html
-@title(text: String) = @{
-  text.split(' ').map(_.capitalize).mkString(" ")
-}
- 
-<h1>@title("hello world")</h1>
-```
+@[pure-reusable](code/javaguide/templates/snippets.scala.html)
 
 > **Note:** Declaring code block this way in a template can be sometime useful but keep in mind that a template is not the best place to write complex logic. It is often better to externalize these kind of code in a Java class (that you can store under the `views/` package as well if you want).
 
 By convention a reusable block defined with a name starting with **implicit** will be marked as `implicit`:
 
-```
-@implicitFieldConstructor = @{ MyFieldConstructor() }
-```
+@[implicits](code/javaguide/templates/snippets.scala.html)
 
 ## Declaring reusable values
 
 You can define scoped values using the `defining` helper:
 
-```html
-@defining(user.getFirstName() + " " + user.getLastName()) { fullName =>
-  <div>Hello @fullName</div>
-}
-```
+@[defining](code/javaguide/templates/snippets.scala.html)
 
 ## Import statements
 
 You can import whatever you want at the beginning of your template (or sub-template):
 
-```scala
-@(customer: models.Customer, orders: List[models.Order])
- 
-@import utils._
- 
-...
-```
+@[import](code/javaguide/templates/importStatement.scala.html)
 
 To make an absolute resolution, use **_root_** prefix in the import statement.
 
-```scala
-@import _root_.company.product.core._
-```
+@[absolute](code/javaguide/templates/importStatement.scala.html)
 
 If you have common imports, which you need in all templates, you can declare in `build.sbt`
 
-```scala
-templatesImport += "com.abc.backend._"
-```
+@[common](code/javaguide/templates/importStatement.scala.html)
 
 ## Comments
 
 You can write server side block comments in templates using `@* *@`:
 
-```
-@*********************
- * This is a comment *
- *********************@   
-```
+@[comment](code/javaguide/templates/snippets.scala.html)
 
 You can put a comment on the first line to document your template into the Scala API doc:
 
-```
-@*************************************
- * Home page.                        *
- *                                   *
- * @param msg The message to display *
- *************************************@
-@(msg: String)
-
-<h1>@msg</h1>
-```
+@[comment](code/javaguide/templates/firstLineComment.scala.html)
 
 ## Escaping
 
@@ -214,10 +150,6 @@ By default, dynamic content parts are escaped according to the template type’s
 
 For example to output raw HTML:
 
-```html
-<p>
-  @Html(article.content)    
-</p>
-```
+@[raw-html](code/javaguide/templates/snippets.scala.html)
 
 > **Next:** [[Common use cases | JavaTemplateUseCases]]
